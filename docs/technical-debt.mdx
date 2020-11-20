@@ -1,0 +1,233 @@
+---
+id: technical-debt
+sidebar_label: Technical Debt
+title: Preventing Technical Debt
+---
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+:::info What is technical debt?
+Any solution that does not solve the problem in an optimal way and has been developed by taking shortcuts instead, has a cost of rework to fix in the future, which can be termed as a technical debt.
+:::
+
+Technical debt usually comes in three types:
+
+<details>
+  <summary>1. Naive</summary>
+  <p>
+    - Lack of knowledge of good coding practices or team norms among developers leading to sub-par quality code delivery.<br/>
+    - Lack of communication of architecture and patterns to be followed among cross-functional squads.<br/>
+    - Lack of strict code quality checks leading to failure of prevention of debt generation.
+  </p>
+</details>
+<details>
+  <summary>2. Accidental / Unavoidable</summary>
+  <p>
+    - Code components evolving into highly complex pieces through lots of incremental changes.<br/>
+    - Less optimized or buggy code due to.  outdated libraries still in use.<br/>
+    - Initial application architecture becoming sub-optimal due to drastic business requirement changes.
+  </p>
+</details>
+<details>
+  <summary>3. Deliberate</summary>
+  <p>
+    - Shortcuts taken by developers to deliver a feature within stringent timelines, instead of a better solution that might take longer.<br/>
+    - Continuous deferment of code improvement and technical debt clearance tasks.<br/>
+    - Allowing debt generation without a plan for repayment.
+  </p>
+</details>
+
+<br/>
+
+Like any other debt, technical debt requires to be paid off to avoid costly refactoring efforts or a delayed delivery. This chapter provides a concise checklist with a prioritization matrix and practical examples for preventing technical debt. Lastly various ways of managing inherited or unavoidable debt are presented.
+
+
+## Technical debt in software projects
+
+### Major impacts of technical debt
+
+Reduced team velocity
+
+- More efforts required to fix bad code used to deliver a feature quickly.
+- Poorly structured or code with poor readability is hard to extend, maintain and any changes can cause regressions.
+
+Performance and Security issues
+
+- Poor application architecture can introduce serious performance issues such as memory leaks.
+- Bad code or poor library choices may fail to meet security and compliance guidelines requiring large efforts to refactor.
+
+Delayed project timelines
+
+- Hard to understand code can make onboarding of new developers longer.
+- Poor code quality causes bug fixing to be longer and more difficult.
+- Extra sprints for paying off tech debts can negatively impact the project timelines.
+
+Strain on the teams
+
+- QA team running against strict deadlines can miss or defer critical tests, thereby creating additional tech debt and potentially resulting in financial losses.
+- Missed deadlines, downtimes and too much time for bug fixing can lead to frustrated leadership and loss of confidence in development team.
+
+Potential Investment
+
+- Allowing reasonable levels of tech debt where payback cost is lesser than the revenue gained can result in debt becoming a good investment provided it is paid-off before it becomes a bad debt.
+
+---
+
+## Concise checklist for avoiding technical debt
+
+| Practice                           | Description                                                                                                                                                                                                                                                          |
+| ---------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Coding guidelines**              | Setting up clear team norms and expectations of code quality and structure upfront is crucial for reducing technical debt generation and ensuring consistency in the codebase.                                                                                       |
+| **Clear communication channels**   | Team wide communication platforms setup with defined channels/groups containing only intended participants helps reduce communication gaps and is crucial in multi-squad teams for effective collaboration.                                                          |
+| **Trainings and guides**           | Upskilling team members and maintaining technical how-to tutorials on engineering best practices, architecture, code patterns, etc. helps developers to understand the importance of technical debt and provides guidance on how to avoid it.                        |
+| **Peer code reviews**              | A positive culture of effective code reviews helps to reduce technical debt generation before it makes its way into production. It also provides a platform to mentor peers on good coding practices helping avoid naïve debt generation in the future.              |
+| **Automated code quality checks**  | Automated code quality checks and testing pipelines that run before new code is added, are an easy way to detect and avoid technical debt generation.                                                                                                                |
+| **Technical debt prioritization**  | Prioritizing debt that can be safely allowed vs. debt that must be addressed immediately, helps to achieve a good balance between focus on features and technical robustness.                                                                                        |
+| **Technical debt ownership model** | Technical debt ownership model which holds developers, tech-leads and product owners or managers equally responsible, helps provide a push for technical debt fixes and ensures equal participation of all stakeholders in paying off the debt.                      |
+| **Debt management plan**           | Making technical debt resolution part of the product roadmap and release plan helps to make it visible and trackable. Addressing these the respective tasks in regular sprints ensures a smooth and staggered approach to paying off the debt and avoid compounding. |
+
+## Prevention Practices in Detail
+
+### Coding Guidelines
+
+Topics to be defined in coding guidelines include codebase structure, variable naming, linting, modularization of code components and testing. Here are a few steps to achieve these:
+
+- Setting up common code linting rules and embedding it in the codebase using tools like Prettier, ESLint, Pylint, SonarQube, etc.
+- Enforcing common code editor configuration for the developers using an .editorconfig file.
+- Defining the code modularization and directory structure, code conventions to be followed by the developers in a README file in the codebase.
+- Unit, integration and end-to-end tests should be made mandatory and be included as a part of the codebase. Code coverage thresholds for various aspects like overall coverage, statements and branches should be defined
+
+Defining team norms containing cadence for work hours, leadership levels, etc. helps team to effectively collaborate and adhere to these guidelines.
+
+### Clear communication channels
+
+Multiple use case specific communication channels should be set up, in the form of groups or channels on communication platforms like Slack or Microsoft Teams and the users in each of these should be restricted based on the need.
+
+Communications that can affect multiple squads or disciplines should be posted on channels where all team members are present, and care should be taken to mark its priority level to communicate its urgency.
+
+Regular review and feedback process to recognize skills and suggest areas requiring improvement among peers is a bonus and helps improve collaboration in the team and builds a sense of collective ownership of the product.
+
+For example, clearly communicating architecture requirements, API contracts, and other technical decisions with all team members and across teams helps ensure no debt is generated, which can lead to rearchitecting the solutions.
+
+### Trainings and guides
+
+Product documentation should be clearly segregated into business and technical documents and should be hosted on a platform like Confluence where every team member can access it. Sensitive information can be restricted to only the intended consumers.
+
+Developer onboarding guides should be a part of the technical documentation and should contain information about the coding and communication norms of the team.
+
+Upskilling and making the team members acclimatized to the team norms and engineering practices is essential and trainings for the same should be facilitated. Some steps to implement this include:
+- Mandatory onboarding sessions for new members involving code overview by tech leads, product overview by product owners and sharing of relevant onboarding guides.
+- Mandatory courses for development of skills required to effectively contribute to the project.
+- Knowledge sharing sessions on a regular basis to encourage sharing info of new frameworks, engineering best practices, etc. among the team members.
+
+### Code reviews by peers
+
+All major version control hosts like Bitbucket, GitHub, etc. provide features for code reviews and this should be made mandatory for any code changes to be allowed into the codebase.
+
+The code review standards should be defined in the developer onboarding documentation and the README file in the codebase.
+
+Essential requirements for code reviews should be set up. For example:
+- Enforcing the minimum number of approvals required for a code change request before it is accepted.
+- Adding multiple levels of approval requirement, from peer developers, tech leads, feature owners, etc.
+- Practicing the cadence of adding all relevant team members who can be affected by the changes as mandatory approvers on top of the minimum approval requirements.
+
+Requesting for code reviews on developer communication channels and following up proactively on the comments received for the code change request.
+
+### Automated code quality checks
+
+First level of checks include enforcement of code linting, formatting and structure checks using static analysis provided by IDEs/code editors and other libraries.
+
+Second level of checks should be enforced before allowing code changes to be pushed to the version control system using libraries like Husky or using other Git Hook mechanisms. Steps like tests, code coverage thresholds, code conformity to lint rules and successful builds can be included here.
+
+Third level of checks should be enforced once code change request is raised, to determine if the changes pass the quality requirements, before manual code reviews.
+
+An example setup to achieve this would be:
+- On creation of a pull request and for every concurrent code push to the request, a CI pipeline run is triggered.
+- Check if the changes pass the linting rules, unit tests and meet code coverage thresholds. Run the changes through code quality and security analysis using tools like SonarQube and Snyk. Run end-to-end tests to ensure no regressions have come up.
+- Allow pull request to be merged if all above steps passed, otherwise, disallow merging and report feedback to code author.
+
+
+### Technical debt prioritization
+
+Not all technical debts have severe side-effects, they can be added to the management plan to be addressed in the future. This requires effective prioritization of tech debt into:
+
+- High value: to be paid-off immediately
+- Medium impact: can be safely acquired and addressed in the future
+- Low value: can be used as a potential investment based on opportunity cost
+
+The prioritization matrix shown can be used as a reference for categorizing the debt. The value indicates the compounding efforts that can be avoided for future tasks or performance gain that can be obtained by paying off the debt and the effort indicates the time required to pay off the debt or its complexity.
+
+![Quadrants](/img/technical-debt/quadrants.png)
+
+### Technical debt ownership model
+
+A shared technical debt ownership model is key in managing deliberate and accidental debt which is acquired/discovered during the lifetime of the project. The model below shows a good way to distribute and pay-off the debt:
+
+![Technical Debt Ownership](/img/technical-debt/ownership.png)
+
+### Debt management plan
+
+Since accidental and deliberate technical debts can’t be prevented, a debt management plan is essential to pay-off the debt generated before “interest” must be paid for their clearance in terms of extra efforts.
+
+A simple management plan must include these components:
+
+- Build a team culture that encourages raising tech debt issues as soon as its discovered.
+- Ensure stories/tickets are created for the debt payment and added to the main project board. It is critical to ensure that the tickets are not deprioritized multiple times leading to simple debts gathering huge amount of “interest” over time.
+- Prioritize the debt tickets based on the severity of the debt and add it to the earliest sprint which allows it to be safely paid-off without affecting project timelines.
+- Ensure the debt tickets being addressed are communicated to all stakeholders who might be affected by the changes.
+- Include technical debt details in regular project delivery reports to enable project leadership to be aware of the progress being done in terms of debt pay-off and generation.
+
+## Not all technical debt is bad!
+
+Here are examples of tech debt that can be allowed based on business needs
+
+Disposable components
+
+- In an agile product delivery setting, the code components of the product which have a higher probability to be discarded in subsequent releases can be allowed to include technical debts that don’t cause performance or security issues for faster delivery.
+- Code components not planned for deprecation should be evaluated regularly for any unpaid debts and they should be paid off in subsequent releases.
+
+Generic vs. Specific
+
+- Based on business needs, decision can be made to make components highly specific though it can generate debt, unless there is a technical need for them to be generic. It can save lot of development effort and time.
+- Long term technical debts like single platform support have little impact when there is no business need for multi-platform support. Care should be enforced while taking these business decisions to ensure they are effective for a long term.
+
+:::caution Remember to pay off technical debt
+It is important to remember that technical debt must be paid off at some point of time in the lifetime of a product. Smart scheduling of when to pay it helps reduce major refactoring efforts and premature optimization.
+:::
+
+## Pointers for managing inherited technical debt
+
+### Create awareness
+
+Define what qualifies as a technical debt and educate the key stakeholders.
+
+Discover and host technical debts to be addressed on a platform accessible to the whole team.
+
+Educate product owners and developers on the compounding costs that can occur by not addressing technical debt early.
+
+Update the “Definition of Done” to include complete automated testing and related technical debt fixes.
+
+### Build emphasis on quality
+
+Revamp the existing architecture to a modular structure, if required.
+
+Bring an alignment between product owners, architects, teach leads and business leadership on balancing technical debt clearance and features.
+
+Take a firm stance on disallowing technical debt generation in new components or libraries beyond a threshold.
+
+Integrate code quality assessment tools and automated tests to detect debt generation in new code.
+
+## Integrate debt pay-off
+
+Prioritize technical debt tasks on the same sprint board as main features.
+
+While enhancing existing features, make sure to include any debt pay-off effort related to that feature in the story estimation.
+
+Have defined milestones for completion and ensure the same is aligned with the project leadership.
+
+Plan large-scale changes to not affect product milestones, like public release.
+
+## Sources
+
+- https://www.agilealliance.org/introduction-to-the-technical-debt-concept
+- https://www.clearlaunch.com/technical-debt-impact
