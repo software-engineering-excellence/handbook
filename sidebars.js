@@ -5,14 +5,14 @@ module.exports = {
       'contributors'
     ],
     Handbook: [
-      'code-reviews',
-      'pair-programming',
-      'technical-debt',
-      'feature-flags',
-      'debugging-techniques',
-      'refactoring-techniques',
       'branch-based-testing',
       'branching-strategies',
+      'code-reviews',
+      'debugging-techniques',
+      'feature-flags',
+      'pair-programming',
+      'refactoring-techniques',
+      'technical-debt',
       'technical-documentation'
     ],
   },
