@@ -1,0 +1,79 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AccessToResources",
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetAccessPoint",
+                "s3:PutAccountPublicAccessBlock",
+                "lambda:ListFunctions",
+                "s3:ListAccessPoints",
+                "s3:ListJobs",
+                "s3:PutStorageLensConfiguration",
+                "lambda:GetAccountSettings",
+                "lambda:CreateEventSourceMapping",
+                "s3:ListStorageLensConfigurations",
+                "cloudfront:*",
+                "s3:GetAccountPublicAccessBlock",
+                "s3:ListAllMyBuckets",
+                "lambda:GetFunction",
+                "lambda:ListEventSourceMappings",
+                "lambda:ListLayerVersions",
+                "lambda:ListLayers",
+                "s3:CreateJob",
+                "lambda:ListCodeSigningConfigs"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "AccessToSpecificResources",
+            "Effect": "Allow",
+            "Action": [
+                "logs:ListTagsLogGroup",
+                "iam:GetRole",
+                "iam:GetPolicyVersion",
+                "iam:GetPolicy",
+                "logs:DescribeLogGroups",
+                "iam:ListAttachedRolePolicies",
+                "logs:DescribeLogStreams",
+                "lambda:*"
+            ],
+            "Resource": [
+                "arn:aws:iam::705383350627:role/terraform-20201119034849788700000001",
+                "arn:aws:iam::705383350627:policy/lambda_logging",
+                "arn:aws:logs:ap-southeast-1:705383350627:log-group:/aws/lambda/us-east-1.auth-and-default-page",
+                "arn:aws:logs:us-east-1:705383350627:log-group:*",
+                "arn:aws:lambda:us-east-1:705383350627:function:auth-and-default-page"
+            ]
+        },
+        {
+            "Sid": "AccessToS3",
+            "Effect": "Allow",
+            "Action": "s3:*",
+            "Resource": "arn:aws:s3:::software-engineering-excellence"
+        },
+        {
+          "Sid": "ListContentsOfTerraformState",
+          "Effect": "Allow",
+          "Action": "s3:ListBucket",
+          "Resource": "arn:aws:s3:::dwmkerr-terraform-state"
+        },
+        {
+          "Sid": "AdministerTerraformState",
+          "Effect": "Allow",
+          "Action": ["s3:GetObject", "s3:PutObject"],
+          "Resource": "arn:aws:s3:::dwmkerr-terraform-state/software-engineering-excellence.tfstate"
+        },
+        {
+          "Sid": "AdministerTerraformStateLock",
+          "Effect": "Allow",
+          "Action": [
+            "dynamodb:GetItem",
+            "dynamodb:PutItem",
+            "dynamodb:DeleteItem"
+          ],
+          "Resource": "arn:aws:dynamodb:*:*:table/dwmkerr-terraform-state"
+        }
+    ]
+}

@@ -1,0 +1,6 @@
+# We don't need any terraform folders or state as it is remote.
+.terraform
+*.tfstate*
+
+# The intermediate zip file used to update the lambda function.
+templates/auth-and-default-page.zip
