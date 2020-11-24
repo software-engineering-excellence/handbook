@@ -41,6 +41,17 @@ const features = [
     ),
   },
   {
+    title: 'Feature Flags',
+    imageUrl: 'img/undraw_dev_focus.svg',
+    path: 'handbook/feature-flags',
+    description: (
+      <>
+        The moment you add a feature flag, it becomes a tech debt.
+        Learn when and how to best use them in this chapter.
+      </>
+    ),
+  },
+  {
     title: 'Debugging Techniques',
     imageUrl: 'img/undraw_bug_fixing.svg',
     path: 'handbook/debugging-techniques',
@@ -52,13 +63,13 @@ const features = [
     ),
   },
   {
-    title: 'Feature Flags',
-    imageUrl: 'img/undraw_dev_focus.svg',
-    path: 'handbook/feature-flags',
+    title: 'Refactoring Techniques',
+    imageUrl: 'img/undraw_in_progress.svg',
+    path: 'handbook/refactoring-techniques',
     description: (
       <>
-        The moment you add a feature flag, it becomes a tech debt.
-        Learn when and how to best use them in this chapter.
+        Have you found yourself in a situation where a refactor broke
+        your entire system, then this chapter is for you.
       </>
     ),
   },
@@ -81,6 +92,17 @@ const features = [
       <>
         An important part of the software development workflow,
         which can greatly improve the team’s efficiency, if executed correctly.
+      </>
+    ),
+  },
+  {
+    title: 'Technical Documentation',
+    imageUrl: 'img/undraw_google_docs.svg',
+    path: 'handbook/technical-documentation',
+    description: (
+      <>
+        Unless you work on private projects, most software you write needs
+        to be easily understood by other engineers.
       </>
     ),
   },
