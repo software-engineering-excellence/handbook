@@ -8,7 +8,6 @@ module.exports = {
   favicon: 'img/favicon.ico',
   organizationName: 'software-engineering-excellence',
   projectName: 'handbook',
-  onPageNav: 'separate',
   themeConfig: {
     navbar: {
       title: 'Software Engineering Excellence',
