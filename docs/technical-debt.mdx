@@ -3,8 +3,6 @@ id: technical-debt
 sidebar_label: Technical Debt
 title: Preventing Technical Debt
 ---
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
 
 :::info What is technical debt?
 Any solution that does not solve the problem in an optimal way and has been developed by taking shortcuts instead, has a cost of rework to fix in the future, which can be termed as a technical debt.
@@ -181,12 +179,12 @@ A simple management plan must include these components:
 
 Here are examples of tech debt that can be allowed based on business needs
 
-Disposable components
+**Disposable components**
 
 - In an agile product delivery setting, the code components of the product which have a higher probability to be discarded in subsequent releases can be allowed to include technical debts that don’t cause performance or security issues for faster delivery.
 - Code components not planned for deprecation should be evaluated regularly for any unpaid debts and they should be paid off in subsequent releases.
 
-Generic vs. Specific
+**Generic vs. Specific**
 
 - Based on business needs, decision can be made to make components highly specific though it can generate debt, unless there is a technical need for them to be generic. It can save lot of development effort and time.
 - Long term technical debts like single platform support have little impact when there is no business need for multi-platform support. Care should be enforced while taking these business decisions to ensure they are effective for a long term.
