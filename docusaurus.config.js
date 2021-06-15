@@ -18,7 +18,7 @@ module.exports = {
           label: 'Handbook',
           position: 'right',
         },
-        {to: 'blog', label: 'Blog', position: 'right'},
+        { to: 'blog', label: 'Blog', position: 'right' },
         {
           href: 'https://github.com/software-engineering-excellence/handbook',
           label: 'GitHub',
@@ -58,6 +58,10 @@ module.exports = {
       ],
       copyright: `Copyright © ${new Date().getFullYear()} Tobias Büschel and contributors`,
     },
+    googleAnalytics: {
+      trackingID: 'G-JPJLFTD0Z4',
+      anonymizeIP: true,
+    },
   },
   presets: [
     [
@@ -69,7 +73,7 @@ module.exports = {
           showLastUpdateTime: true,
           showLastUpdateAuthor: false,
           editUrl:
-          'https://github.com/software-engineering-excellence/handbook/edit/master/website/',
+            'https://github.com/software-engineering-excellence/handbook/edit/master/website/',
           sidebarPath: require.resolve('./sidebars.js'),
         },
         blog: {
@@ -83,4 +87,4 @@ module.exports = {
       },
     ],
   ],
-};
+}
