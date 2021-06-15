@@ -8,17 +8,29 @@ module.exports = {
   favicon: 'img/favicon.ico',
   organizationName: 'software-engineering-excellence',
   projectName: 'handbook',
+  plugins: [
+    [
+      require.resolve('@cmfcmf/docusaurus-search-local'),
+      {
+        language: 'en',
+      },
+    ],
+  ],
   themeConfig: {
     navbar: {
       title: 'Software Engineering Excellence',
       items: [
+        {
+          type: 'search',
+          position: 'right',
+        },
         {
           to: 'handbook/',
           activeBasePath: 'handbook',
           label: 'Handbook',
           position: 'right',
         },
-        {to: 'blog', label: 'Blog', position: 'right'},
+        { to: 'blog', label: 'Blog', position: 'right' },
         {
           href: 'https://github.com/software-engineering-excellence/handbook',
           label: 'GitHub',
@@ -69,7 +81,7 @@ module.exports = {
           showLastUpdateTime: true,
           showLastUpdateAuthor: false,
           editUrl:
-          'https://github.com/software-engineering-excellence/handbook/edit/master/website/',
+            'https://github.com/software-engineering-excellence/handbook/edit/master/website/',
           sidebarPath: require.resolve('./sidebars.js'),
         },
         blog: {
@@ -83,4 +95,4 @@ module.exports = {
       },
     ],
   ],
-};
+}
