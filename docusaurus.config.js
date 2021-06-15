@@ -70,6 +70,10 @@ module.exports = {
       ],
       copyright: `Copyright © ${new Date().getFullYear()} Tobias Büschel and contributors`,
     },
+    googleAnalytics: {
+      trackingID: 'G-JPJLFTD0Z4',
+      anonymizeIP: true,
+    },
   },
   presets: [
     [
