@@ -8,10 +8,22 @@ module.exports = {
   favicon: 'img/favicon.ico',
   organizationName: 'software-engineering-excellence',
   projectName: 'handbook',
+  plugins: [
+    [
+      require.resolve('@cmfcmf/docusaurus-search-local'),
+      {
+        language: 'en',
+      },
+    ],
+  ],
   themeConfig: {
     navbar: {
       title: 'Software Engineering Excellence',
       items: [
+        {
+          type: 'search',
+          position: 'right',
+        },
         {
           to: 'handbook/',
           activeBasePath: 'handbook',
