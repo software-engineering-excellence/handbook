@@ -1,0 +1,291 @@
+---
+id: feature-flags
+title: Feature Flags
+---
+
+import FeatureFlagsImage from '/img/undraw_dev_focus.svg';
+
+<div className="text--center margin-bottom--lg">
+  <FeatureFlagsImage width="80%" height="300px" />
+</div>
+
+Feature flags, also known as feature toggles or feature switches, are a software development technique that allows
+developers to selectively enable or disable features in a software application. They enable a high level of control over
+the application's behavior without requiring changes to the code or redeployment.
+
+Feature flags work by wrapping a specific piece of functionality in a conditional statement. The condition checks the
+status of the flag (enabled or disabled) and either executes or skips the associated code accordingly. The flag's status
+can be controlled through a configuration file, an external service, or even programmatically.
+
+## Benefits
+
+Feature flags provide several benefits to the software development process:
+
+**1. Faster development cycles:** Developers can merge their changes into the main codebase, even if the feature is not
+fully complete, reducing the need for long-lived feature branches and facilitating continuous integration.
+
+**2. Reduced risk:** Features can be tested and deployed incrementally, allowing developers to identify and address
+issues before they impact the entire user base.
+
+**3. Greater flexibility:** Feature flags allow for experimentation, such as A/B testing or gradual rollouts, helping to
+validate hypotheses and inform future development.
+
+**4. Simplified rollbacks:** If a problem occurs,feature flags make it easy to disable the affected feature without
+rolling back the entire deployment.
+
+## Types
+
+There are several types of feature flags, each with its own use case:
+
+- **Release flags:** Control the release of new features, allowing for incremental rollouts and rollbacks.
+- **Experiment flags:** Facilitate A/B testing and other experiments by controlling which users see specific features.
+- **Operational flags:** Control the behavior of the application under certain conditions, such as high load or during
+  maintenance.
+- **Permission flags:** Enable or disable features based on user roles, subscription levels, or other user attributes.
+
+Now that we have an understanding of what feature flags are and why they're important, let's move on to implementing
+feature flags in the next chapter.
+
+## Use Cases
+
+Feature flags can be employed in a variety of ways to improve software development and deployment processes. In this
+chapter, we will explore several use cases for feature flags and provide links to company case studies showcasing their
+effective utilization.
+
+### A/B testing
+
+Feature flags can be used to implement A/B testing, where different users are shown different variations of a feature to
+determine which one performs better. This can help inform product decisions and optimize the user experience.
+
+**Case study:** [Booking.com](https://booking.com/) extensively uses feature flags for A/B testing to optimize their
+conversion rates. Read more about their approach
+[here](https://devcycle.com/blog/how-booking-com-a-b-tests-like-nobodys-business).
+
+### Canary releases
+
+Canary releases involve gradually rolling out a new feature to a small subset of users before deploying it to the entire
+user base. Feature flags can be used to manage these incremental rollouts and monitor their impact.
+
+**Case study:** [Netflix](https://netflix.com/) uses feature flags to manage canary releases, allowing them to test new
+features in a controlled environment. Learn more about their process
+[here](https://netflixtechblog.com/deploying-the-netflix-api-79b6176cc3f0).
+
+### Dark launches
+
+Dark launches involve deploying a new feature in production without making it visible to users. Feature flags can be
+used to hide these features and enable them for internal testing, allowing developers to gather performance data and fix
+issues before the public release.
+
+**Case study:** [Facebook](https://facebook.com) uses dark launches to test new features and gather performance data.
+Learn more about their process
+[here](https://tech.co/news/the-dark-launch-how-googlefacebook-release-new-features-2016-04).
+
+### User segmentation
+
+Feature flags can be used to enable or disable features for specific user segments based on criteria such as user role,
+location, or behavior. This enables targeted feature delivery and customization of the user experience.
+
+**Case study:** [Etsy](https://etsy.com/) uses feature flags for user segmentation to test and deliver personalized
+features. Read more about their approach
+[here](https://www.etsy.com/codeascraft/how-does-etsy-manage-development-and-operations/).
+
+### Rollbacks and emergency toggles
+
+Feature flags can serve as an emergency mechanism to quickly disable a problematic feature in production without
+requiring a full rollback. This can help minimize the impact of issues and reduce downtime.
+
+**Case study:** [GitHub](https://github.com) uses feature flags to enable fast rollbacks and minimize downtime when
+issues arise. Learn more about their process
+[here](https://github.blog/2021-04-27-ship-code-faster-safer-feature-flags/).
+
+In the next chapter, we will look at feature flagging in practice and explore more real-world examples and best
+practices for using feature flags in production.
+
+## Implementing Feature Flags
+
+To set up a feature flag system, you can choose between two approaches:
+
+- **Build your own:** Create a custom feature flag system tailored to your application's needs. This approach requires
+  more development effort but offers greater flexibility.
+
+- **Use SaaS:** Leverage an existing feature flag management solution, such as LaunchDarkly, Split, or Unleash. This
+  approach saves development time but may come with additional costs or limitations.
+
+### Build your own
+
+1. Define the feature flag, giving it a unique name and description.
+2. Add the conditional code to your application, using the feature flag name as the condition.
+3. Configure the feature flag's status (enabled or disabled) in your configuration file, database, or external service.
+4. Update the feature flag's status as needed to control the feature's availability.
+
+Here is an example of how such an implementation could look like in React.js
+
+**FeatureFlagContext.jsx**
+
+```jsx
+import React, { createContext, useContext } from 'react';
+
+const FeatureFlagContext = createContext({});
+
+function FeatureFlagProvider({ children, featureFlags }) {
+  return <FeatureFlagContext.Provider value={{ featureFlags }}>{children}</FeatureFlagContext.Provider>;
+}
+
+function useFeatureFlag(flagName) {
+  const { featureFlags } = useContext(FeatureFlagContext);
+  return featureFlags[flagName] || false;
+}
+
+export { FeatureFlagProvider, useFeatureFlag };
+```
+
+**App.jsx**
+
+```jsx
+import React from 'react';
+import { FeatureFlagProvider } from './featureFlagContext';
+import ContactUsButton from './ContactUsButton';
+
+const featureFlags = {
+  contactUsEnabled: true,
+};
+
+export default function App() {
+  return (
+    <FeatureFlagProvider featureFlags={featureFlags}>
+      <Content />
+    </FeatureFlagProvider>
+  );
+}
+```
+
+And now you can use it in **Content.jsx**
+
+```jsx
+import React from 'react';
+import { useFeatureFlag } from './featureFlagContext';
+
+export default function Content() {
+  const isContactUsEnabled = useFeatureFlag('contactUsEnabled');
+
+  if (isContactUsEnabled) {
+    return <button>Contact Us</button>;
+  } else {
+    return null;
+  }
+}
+```
+
+### Use SaaS
+
+While it is possible to build a custom feature flag system in-house, many organizations choose to utilize third-party
+feature flag services. These services offer robust feature flag management, scalability, and additional features that
+can save development time and resources.
+
+| Benefit                        | Description                                                                                                                                                                                                                                |
+| ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Reduced development effort** | Implementing a custom feature flag system can be time-consuming and resource-intensive. Third-party services provide ready-to-use feature flag management solutions that can be quickly integrated into your software development process. |
+| **Scalability**                | Third-party services are designed to handle large-scale deployments and can scale with your application as it grows, ensuring consistent performance even as the number of feature flags and users increases.                              |
+| **Advanced features**          | Third-party feature flag services often offer advanced features such as targeting rules, analytics, and A/B testing capabilities, which may not be readily available in an in-house solution.                                              |
+| **Expertise**                  | Third-party services are backed by teams of experts who specialize in feature flag management, ensuring the service stays up-to-date with best practices and evolving industry trends.                                                     |
+
+Here are some examples of feature flag solutions:
+
+- **[LaunchDarkly](https://launchdarkly.com/):** a popular feature flag management platform that offers a wide range of
+  features, including real-time flag updates, user targeting, A/B testing, and advanced analytics. LaunchDarkly supports
+  numerous programming languages and platforms, making it a versatile choice for many organizations.
+
+- **[Optimizely](https://www.optimizely.com/insights/blog/feature-management):** a comprehensive experimentation and
+  feature flagging platform. In addition to feature flag management, Optimizely offers A/B testing, multivariate
+  testing, and personalization capabilities. Optimizely supports web, mobile, and server-side applications, making it
+  suitable for a variety of use cases.
+
+- **[Split](https://www.split.io/):** a feature flag and experimentation platform that emphasizes data-driven
+  decision-making. Split offers robust feature flag management, targeting, and analytics capabilities, as well as
+  integrations with popular development tools and platforms.
+
+- **[Flagsmith](https://flagsmith.com/):** an open-source feature flag and remote configuration service that can be
+  self-hosted or used as a managed service. Flagsmith offers a straightforward feature flag management interface, user
+  targeting, and A/B testing capabilities, making it a flexible option for organizations looking for an open-source
+  solution.
+
+### Best practices for implementing feature flags
+
+- **Keep flags short-lived:** Use feature flags for short-term purposes, and remove them once the feature is fully
+  deployed and stable.
+- **Use descriptive flag names:** Choose clear and meaningful names for your feature flags to make it easy to understand
+  their purpose.
+- **Limit flag dependencies:** Avoid creating complex dependencies between feature flags, as it can make it difficult to
+  manage and reason about the system.
+- **Monitor and log flag usage:** Track feature flag usage to identify issues, understand user behavior, and inform
+  future decisions.
+
+Example: Let's say we have a new feature called "advanced search" that we want to deploy using a feature flag. Here's an
+example of how to implement it using a best practice approach:
+
+```javascript
+// Define the feature flag
+const advancedSearchFlag = true;
+
+// Use the feature flag in a conditional statement
+if (advancedSearchFlag) {
+  showAdvancedSearch();
+} else {
+  showBasicSearch();
+}
+```
+
+### Common pitfalls to avoid
+
+When using feature flags, be aware of the following pitfalls:
+
+- **Leaving flags in the codebase for too long:** This can lead to code bloat, technical debt, and increased complexity.
+  Make sure to remove flags once they are no longer needed.
+- **Overusing feature flags:** Excessive use of feature flags can make the codebase difficult to understand and
+  maintain. Use them judiciously and only when necessary.
+- **Inconsistent flag management:** Inconsistent management of feature flags across teams or environments can lead to
+  confusion and mistakes. Establish clear guidelines and processes for managing feature flags.
+
+Example: The following example demonstrates a poor implementation of feature flags:
+
+```javascript
+// Define the feature flag
+const newFeature = true;
+
+// Use the feature flag in a conditional statement
+if (newFeature) {
+  doThisThing(); // Unclear what "this thing" refers to
+} else {
+  doThatThing(); // Unclear what "that thing" refers to
+}
+```
+
+In this example, the feature flag has an unclear name, and the associated code does not provide enough context to
+understand the purpose of the flag or the feature it controls.
+
+## Conclusion
+
+Feature flags have emerged as a powerful tool for managing the release of new features, enabling more agile development
+practices, and reducing risk. As software engineering continues to evolve, it is likely that the role of feature flags
+will continue to grow in importance.
+
+By understanding the core concepts of feature flags, best practices for implementation, and the various use cases they
+can support, software engineers can harness their power to deliver higher quality, more reliable software.
+
+For further reading and resources on feature flags, consider the following books and articles:
+
+## References
+
+**Books**
+
+- [Continuous Delivery: Reliable Software Releases through Build, Test, and Deployment Automation](https://amzn.to/3KAJgwO)
+  by Jez Humble and David Farley
+- [Feature Management with LaunchDarkly: Discover safe ways to make live changes in your systems and master testing in production](https://amzn.to/3nMkeC1)
+  by by Michael Gillett and John Kodumal
+
+**Articles**
+
+- [Feature Toggles (aka Feature Flags)](https://martinfowler.com/articles/feature-toggles.html) by Martin Fowler
+- [What Are Feature Flags In DevOps](https://devcycle.com/blog/what-are-feature-flags-in-devops)
+- [When Feature Flags Go Wrong](https://www.infoq.com/articles/feature-flags-gone-wrong/)
+- [Feature Flags (Toggles) in DevOps: How These Concepts Relate](https://launchdarkly.com/blog/feature-flags-toggles-in-devops-how-these-concepts-relate/)
