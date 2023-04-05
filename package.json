@@ -1,0 +1,53 @@
+{
+  "name": "software-engineering-excellence",
+  "description": "Proven practices for developing software successfully",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "docusaurus": "docusaurus",
+    "start": "docusaurus start",
+    "build": "docusaurus build",
+    "swizzle": "docusaurus swizzle",
+    "deploy": "docusaurus deploy",
+    "serve": "docusaurus serve",
+    "clear": "docusaurus clear",
+    "prepare": "husky install",
+    "lint": "prettier --check .",
+    "format": "prettier --ignore-unknown --write .",
+    "spell:check": "cspell 'docs/**/*.{md,mdx}' --show-suggestions",
+    "spell:ignore": "cspell --words-only --unique 'docs/**/*.{md,mdx}' | sort --ignore-case >> dictionary.txt"
+  },
+  "dependencies": {
+    "@docusaurus/core": "^2.4.0",
+    "@docusaurus/preset-classic": "^2.4.0",
+    "@easyops-cn/docusaurus-search-local": "^0.35.0",
+    "@mdx-js/react": "^1.6.22",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.5.1",
+    "@commitlint/config-conventional": "^17.4.4",
+    "cspell": "^6.31.1",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.0",
+    "prettier": "2.8.7"
+  },
+  "lint-staged": {
+    "*": [
+      "npm run format"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.5%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

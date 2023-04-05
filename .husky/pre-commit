@@ -1,0 +1,6 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+npx lint-staged --allow-empty
+
+exec git diff --cached --name-only | npx cspell --no-summary --no-progress --no-must-find-files 'docs/**/*.{md,mdx}'
