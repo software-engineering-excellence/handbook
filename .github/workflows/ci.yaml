@@ -1,0 +1,40 @@
+name: CI
+
+on: [pull_request]
+
+jobs:
+  build_lint_spelling:
+    name: Build, Lint, and Spellcheck
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          # Ensure that we fetch entire Git history to correctly show last updated author and time
+          # https://github.com/facebook/docusaurus/issues/2798#issuecomment-636602951
+          fetch-depth: 0
+
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - run: npm ci
+
+      - name: Build project
+        run: npm run build
+
+      - name: Static analysis
+        run: npm run lint
+
+      - name: Check spelling
+        run: npm run spell:check
+  pr_title:
+    name: Validate PR title
+    runs-on: ubuntu-latest
+    steps:
+      - uses: amannn/action-semantic-pull-request@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          requireScope: false

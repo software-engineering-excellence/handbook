@@ -1,0 +1,43 @@
+{
+  "version": "0.2",
+  "gitignoreRoot": ".",
+  "useGitignore": true,
+  "language": "en-US",
+  "dictionaries": [
+    "en_US",
+    "companies",
+    "misc",
+    "css",
+    "html",
+    "fonts",
+    "node",
+    "bash",
+    "npm",
+    "filetypes",
+    "typescript",
+    "softwareTerms",
+    "companies",
+    "lorem-ipsum",
+    "custom-dictionary"
+  ],
+  "ignorePaths": [
+    "CHANGELOG.md",
+    "packages/docusaurus-theme-translations/locales",
+    "package.json",
+    "package-lock.json",
+    "dictionary.txt",
+    ".editorconfig",
+    "*.xyz",
+    "*.docx",
+    "versioned_docs",
+    "*.min.*"
+  ],
+  "ignoreRegExpList": ["Email", "Urls"],
+  "dictionaryDefinitions": [
+    {
+      "name": "custom-dictionary",
+      "path": "./dictionary.txt",
+      "addWords": true
+    }
+  ]
+}
