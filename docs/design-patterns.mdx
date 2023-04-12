@@ -1,0 +1,516 @@
+---
+id: design-patterns
+title: Design Patterns
+---
+
+import DesignPatternImage from '/img/undraw_design_patterns.svg';
+
+<div className="text--center margin-bottom--lg">
+  <DesignPatternImage width="80%" height="300px" />
+</div>
+
+Software design patterns are reusable solutions to common software development problems. They provide proven solutions
+to common problems encountered in software development and enable developers to create code that is more modular,
+reusable, and maintainable.
+
+In recent years, software design patterns have gained increased popularity due to their ability to make software
+development more efficient and less error-prone. From simple design patterns that help with object creation to complex
+patterns that enable communication between objects and classes, software design patterns have become essential tools for
+software developers of all levels of experience.
+
+There are three primary categories of design patterns: creational, structural, and behavioral.
+
+## Creational Patterns
+
+Creational patterns deal with object creation mechanisms, attempting to create objects in a manner suitable to the
+situation. Some examples of creational patterns are:
+
+### Singleton
+
+This pattern ensures that only one instance of a class is created and provides a global point of access to that
+instance. In JavaScript, it can be implemented as follows:
+
+```javascript
+class Singleton {
+  static getInstance() {
+    if (!Singleton.instance) {
+      Singleton.instance = new Singleton();
+    }
+    return Singleton.instance;
+  }
+}
+```
+
+### Factory
+
+This pattern provides an interface for creating objects in a superclass, but allows subclasses to alter the type of
+objects that will be created. Here's a JavaScript example:
+
+```javascript
+class VehicleFactory {
+  createVehicle(type) {
+    if (type === 'car') {
+      return new Car();
+    } else if (type === 'truck') {
+      return new Truck();
+    }
+  }
+}
+```
+
+### Abstract Factory
+
+The Abstract Factory Pattern is used to create families of related objects without specifying their concrete classes. It
+provides an interface for creating objects, but lets subclasses decide which classes to instantiate. This pattern is
+useful when you need to create multiple objects that share a common interface or have related functionality.
+
+### Builder
+
+The Builder Pattern is used to separate the construction of a complex object from its representation. It provides a way
+to create different representations of the same object. This pattern is useful when you have an object with multiple
+properties that need to be set in a specific order, or when you want to create an object from different sets of
+parameters.
+
+Let's say we want to create an HTML page using the Builder Pattern. We have a Page class that has a title, a header, a
+body, and a footer. We want to create different pages with different content, but we don't want to hardcode the content
+into the Page class. Instead, we'll use a PageBuilder class to create the pages.
+
+```javascript
+class Page {
+  constructor(title, header, body, footer) {
+    this.title = title;
+    this.header = header;
+    this.body = body;
+    this.footer = footer;
+  }
+}
+
+class PageBuilder {
+  setTitle(title) {
+    this.title = title;
+    return this;
+  }
+
+  setHeader(header) {
+    this.header = header;
+    return this;
+  }
+
+  setBody(body) {
+    this.body = body;
+    return this;
+  }
+
+  setFooter(footer) {
+    this.footer = footer;
+    return this;
+  }
+
+  build() {
+    return new Page(this.title, this.header, this.body, this.footer);
+  }
+}
+
+// Usage
+const pageBuilder = new PageBuilder();
+const page = pageBuilder
+  .setTitle('My Page')
+  .setHeader('Welcome to my page')
+  .setBody('This is the body of my page')
+  .setFooter('Copyright © 2023')
+  .build();
+```
+
+In this example, we have a `Page` class that has a constructor that takes four arguments: `title`, `header`, `body`, and
+`footer`. We then have a `PageBuilder` class that has four methods (`setTitle`, `setHeader`, `setBody`, and `setFooter`)
+for setting the values of the `Page` class properties. We also have a build method that creates a new `Page` instance
+with the values set by the builder methods. Finally, we can use the `PageBuilder` to create a new `Page` instance with
+the desired content.
+
+### Prototype
+
+The Prototype Pattern is used to create new objects based on an existing object. It provides a way to create new objects
+without using the new operator. This pattern is useful when you have an object that is expensive to create, or when you
+need to create multiple instances of the same object.
+
+Let's say we have a game that has multiple enemies, each with its own set of properties (such as health, speed, and
+attack power). Instead of creating a new enemy instance for each enemy, we can use the Prototype Pattern to clone an
+existing enemy instance and modify its properties.
+
+```javascript
+class Enemy {
+  constructor(health, speed, attackPower) {
+    this.health = health;
+    this.speed = speed;
+    this.attackPower = attackPower;
+  }
+
+  clone() {
+    return new Enemy(this.health, this.speed, this.attackPower);
+  }
+}
+
+// Usage
+const originalEnemy = new Enemy(100, 10, 20);
+const clonedEnemy1 = originalEnemy.clone();
+const clonedEnemy2 = originalEnemy.clone();
+
+clonedEnemy1.health = 80;
+clonedEnemy2.speed = 20;
+```
+
+In this example, we have an `Enemy` class that has a constructor that takes three arguments: `health`, `speed`, and
+`attackPower`. We then have a `clone` method that creates a new `Enemy` instance with the same properties as the
+original instance. Finally, we can use the `clone` method to create new enemy instances and modify their properties as
+needed.
+
+## Structural Patterns
+
+Structural patterns deal with object composition, attempting to form large structures of objects. Examples of structural
+patterns include:
+
+### Adapter
+
+This pattern converts the interface of a class into another interface that clients expect. It allows classes with
+incompatible interfaces to work together. In JavaScript, the adapter pattern can be implemented like this:
+
+```javascript
+class OldSystem {
+  oldMethod() {
+    // Old implementation
+  }
+}
+
+class Adapter {
+  constructor(oldSystem) {
+    this.oldSystem = oldSystem;
+  }
+
+  newMethod() {
+    this.oldSystem.oldMethod();
+  }
+}
+
+const oldSystem = new OldSystem();
+const adapter = new Adapter(oldSystem);
+adapter.newMethod(); // Calls the old method through the adapter
+```
+
+### Bridge
+
+The Bridge Pattern is used to decouple an abstraction from its implementation so that both can vary independently. It
+provides a way to create different implementations of an interface without changing the abstraction. This pattern is
+useful when you need to separate an interface from its implementation, or when you want to have multiple implementations
+of an interface.
+
+Let's say we have a `Shape` class that has a `draw` method. We also have a `Renderer` interface that has a `render`
+method. We want to create different shapes that can be rendered using different renderers. We can use the Bridge Pattern
+to create a Shape abstraction and a `Renderer` implementation, and then combine them in different ways.
+
+```javascript
+class Shape {
+  constructor(renderer) {
+    this.renderer = renderer;
+  }
+
+  draw() {
+    this.renderer.render();
+  }
+}
+
+class Renderer {
+  render() {}
+}
+
+class CircleRenderer extends Renderer {
+  render() {
+    console.log('Rendering a circle');
+  }
+}
+
+class SquareRenderer extends Renderer {
+  render() {
+    console.log('Rendering a square');
+  }
+}
+
+// Usage
+const circle = new Shape(new CircleRenderer());
+const square = new Shape(new SquareRenderer());
+
+circle.draw(); // logs "Rendering a circle"
+square.draw(); // logs "Rendering a square"
+```
+
+In this example, we have a `Shape` class that has a constructor that takes a `Renderer` instance. We also have a
+`Renderer` interface that has a `render` method. We then have two `Renderer` implementations (`CircleRenderer` and
+`SquareRenderer`) that each implement the `render` method in a different way. Finally, we can use the `Shape` class to
+create different shapes (`circle` and `square`) that are rendered using different renderers.
+
+### Composite
+
+The Composite Pattern is used to treat a group of objects the same way as a single object. It provides a way to create a
+tree-like structure of objects, where each object in the tree can be a composite or a leaf node. This pattern is useful
+when you need to represent a hierarchy of objects, or when you want to treat a group of objects the same way as a single
+object.
+
+Let's say we have a `Menu` class that represents a menu item in a web application. Each menu item can have sub-items,
+which can themselves have sub-items. We can use the Composite Pattern to create a tree-like structure of `Menu` objects,
+where each `Menu` object can be a composite or a leaf node.
+
+```javascript
+class Menu {
+  constructor(name, url) {
+    this.name = name;
+    this.url = url;
+    this.children = [];
+  }
+
+  add(menuItem) {
+    this.children.push(menuItem);
+  }
+
+  remove(menuItem) {
+    this.children = this.children.filter((child) => child !== menuItem);
+  }
+
+  render() {
+    console.log(`<a href="${this.url}">${this.name}</a>`);
+
+    for (const child of this.children) {
+      console.log('<ul>');
+      child.render();
+      console.log('</ul>');
+    }
+  }
+}
+
+// Usage
+const mainMenu = new Menu('Main', '#');
+const aboutMenu = new Menu('About', '#about');
+const contactMenu = new Menu('Contact', '#contact');
+
+mainMenu.add(aboutMenu);
+mainMenu.add(contactMenu);
+
+const teamMenu = new Menu('Team', '#team');
+const historyMenu = new Menu('History', '#history');
+
+aboutMenu.add(teamMenu);
+aboutMenu.add(historyMenu);
+
+mainMenu.render();
+```
+
+### Decorator
+
+This pattern attaches additional responsibilities to an object dynamically. Decorators provide a flexible alternative to
+subclassing for extending functionality. Here's an example in JavaScript:
+
+```javascript
+class BaseComponent {
+  operation() {
+    return 'BaseComponent';
+  }
+}
+
+class Decorator extends BaseComponent {
+  constructor(component) {
+    super();
+    this.component = component;
+  }
+
+  operation() {
+    return `${this.component.operation()} + Decorator`;
+  }
+}
+
+const baseComponent = new BaseComponent();
+const decoratedComponent = new Decorator(baseComponent);
+console.log(decoratedComponent.operation()); // Output: "BaseComponent + Decorator"
+```
+
+### Facade
+
+- TODO
+
+### Flyweight
+
+- TODO
+
+### Proxy
+
+- TODO
+
+## Behavioral Patterns
+
+Behavioral patterns deal with communication between objects, attempting to define how objects interact and distribute
+responsibility. Some examples of behavioral patterns are:
+
+### Observer
+
+This pattern defines a one-to-many dependency between objects so that when one object changes state, all its dependents
+are notified and updated automatically. In JavaScript, it can be implemented like this:
+
+```javascript
+class Subject {
+  constructor() {
+    this.observers = [];
+  }
+
+  addObserver(observer) {
+    this.observers.push(observer);
+  }
+
+  removeObserver(observer) {
+    const index = this.observers.indexOf(observer);
+    if (index > -1) {
+      this.observers.splice(index, 1);
+    }
+  }
+
+  notify(data) {
+    this.observers.forEach((observer) => observer.update(data));
+  }
+}
+
+class Observer {
+  update(data) {
+    console.log(`Received data: ${data}`);
+  }
+}
+
+const subject = new Subject();
+const observer1 = new Observer();
+const observer2 = new Observer();
+
+subject.addObserver(observer1);
+subject.addObserver(observer2);
+
+subject.notify('Some data'); // Output: "Received data: Some data" for both observers
+```
+
+### Strategy
+
+This pattern defines a family of algorithms, encapsulates each one, and makes them interchangeable. It allows the
+algorithm to vary independently from the clients that use it. Here's an example in JavaScript:
+
+```javascript
+class Context {
+  constructor(strategy) {
+    this.strategy = strategy;
+  }
+
+  setStrategy(strategy) {
+    this.strategy = strategy;
+  }
+
+  executeStrategy(data) {
+    return this.strategy.execute(data);
+  }
+}
+
+class ConcreteStrategyA {
+  execute(data) {
+    return `ConcreteStrategyA: ${data}`;
+  }
+}
+
+class ConcreteStrategyB {
+  execute(data) {
+    return `ConcreteStrategyB: ${data}`;
+  }
+}
+
+const context = new Context(new ConcreteStrategyA());
+console.log(context.executeStrategy('test')); // Output: "ConcreteStrategyA: test"
+
+context.setStrategy(new ConcreteStrategyB());
+console.log(context.executeStrategy('test')); // Output: "ConcreteStrategyB: test"
+```
+
+### Chain of Responsibility
+
+- TODO
+
+### Command
+
+- TODO
+
+### Interpreter
+
+- TODO
+
+### Iterator
+
+- TODO
+
+### Mediator
+
+- TODO
+
+### Memento
+
+- TODO
+
+### State
+
+- TODO
+
+### Template Method
+
+- TODO
+
+### Visitor
+
+- TODO
+
+## Applying Design Patterns Effectively
+
+When applying design patterns, it's essential to keep the following tips in mind:
+
+- **Understand the Problem:** Before choosing a design pattern, make sure you fully understand the problem you're trying
+  to solve.
+
+- **Don't Force a Pattern:** Design patterns are useful tools, but they're not a one-size-fits-all solution. Don't try
+  to force a pattern into your design if it doesn't fit naturally.
+
+- **Familiarize Yourself with Multiple Patterns:** The more design patterns you know, the more likely you'll find the
+  right one for your situation. Spend time learning about different patterns and their use cases.
+
+- **Keep It Simple:** Always strive for simplicity in your designs. If a design pattern adds unnecessary complexity to
+  your solution, consider alternative approaches.
+
+- **Balance Flexibility and Maintainability:** Design patterns can provide flexibility, but they can also add complexity
+  to your code. Strive for a balance between flexibility and maintainability when applying design patterns.
+
+## Anti-Patterns
+
+TODO:
+
+- Definition of anti-patterns
+- Overview of common anti-patterns, including:
+- God Object
+- Spaghetti Code
+- Singleton Abuse
+- Callback Hell
+- Magic Number
+- Copy-Paste Programming
+- Golden Hammer
+- How to avoid anti-patterns and their negative consequences
+
+## Conclusion
+
+Design patterns are a valuable tool for software developers, providing reusable solutions to common problems and
+improving code quality, maintainability, and scalability. By understanding and applying design patterns effectively,
+developers can create more robust and efficient software systems.
+
+To deepen your understanding of design patterns, consider reading the following resources:
+
+- [Design Patterns: Elements of Reusable Object-Oriented Software](https://amzn.to/43os0lL) by Erich Gamma, Richard
+  Helm, Ralph Johnson, and John
+- [Head First Design Patterns: Building Extensible and Maintainable Object-Oriented Software ](https://amzn.to/3Kzlznz)
+  by Eric Freeman and Elisabeth Robson
+- [Refactoring to Patterns](https://amzn.to/403gHMQ) by Joshua Kerievsky
+- [Learning JavaScript Design Patterns: A JavaScript and React Developer's Guide](https://amzn.to/3UtvX4w) by Addy
+  Osmani

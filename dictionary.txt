@@ -49,3 +49,7 @@ Kruchten
 Ozkaya
 Poppendieck
 Schwaber
+Addy
+creational
+Osmani
+subclassing
