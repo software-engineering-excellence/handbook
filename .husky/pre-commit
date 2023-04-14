@@ -3,4 +3,4 @@
 
 npx lint-staged --allow-empty
 
-exec git diff --cached --name-only | npx cspell --no-summary --no-progress --no-must-find-files 'docs/**/*.{md,mdx}'
+exec git diff --cached --name-only | grep -E ".(md|mdx)$" | npx cspell --no-summary --no-progress --no-must-find-files --file-list stdin || (printf "\n\033[0;31mIf you want to add these words to the dictionary, run\033[0m \033[1;34m'npm run spell:ignore'\033[0m\n\n" && exit 1)
